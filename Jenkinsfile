@@ -2,20 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Bezig met het bouwen van de applicatie...'
-                // Hier komt later je 'dotnet build' commando
+                // Jenkins haalt hier automatisch de code uit je main branch op
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Build Frontend') {
             steps {
-                echo 'Bezig met het uitvoeren van tests...'
+                echo 'Bezig met het bouwen van de Frontend applicatie...'
+                // Pas het pad aan naar de map waar je .csproj bestand staat
+                bat 'dotnet build "frontend/EasyDevOps.Frontend.csproj" --configuration Release'
             }
         }
-        stage('Deploy') {
+
+        stage('Security Test') {
             steps {
-                echo 'Bezig met deployen...'
+                echo 'Systeemeigen vulnerability scan uitvoeren...'
+                // Dit scant je project op bekende beveiligingslekken in NuGet pakketten
+                bat 'dotnet list "frontend/EasyDevOps.Frontend.csproj" package --vulnerable'
             }
         }
     }
