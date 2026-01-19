@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Bezig met het bouwen van de Frontend applicatie...'
                 // Pas het pad aan naar de map waar je .csproj bestand staat
-                bat 'dotnet build "frontend/EasyDevOps.frontend.csproj" --configuration Release'
+                bat 'dotnet build "frontend/EasyDevOps.Frontend.csproj" --configuration Release'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Systeemeigen vulnerability scan uitvoeren...'
                 // Dit scant je project op bekende beveiligingslekken in NuGet pakketten
-                bat 'dotnet list "frontend/EasyDevOps.frontend.csproj" package --vulnerable'
+                bat 'dotnet list "frontend/EasyDevOps.Frontend.csproj" package --vulnerable'
             }
         }
     }
